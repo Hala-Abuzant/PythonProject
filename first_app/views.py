@@ -33,18 +33,19 @@ def showviolation(request):
 def home(request):
     return render(request,'home.html')
 def reg(request):
-    
-        request.session['type'] = 'driver'
         errors = Driver.objects.basic_validator(request.POST)
         users=Driver.objects.all()
-        # for user in users:
-        #     if user.email==request.POST['email']:
-        #         errors['email']="this email aleady exsist"
+        for user in users:
+            if user.email==request.POST['email']:
+                errors['email']="this email aleady exsist"
+        for user in users:
+            if user.notional_id==request.POST['nid']:
+                errors['notional_id']="this notional_id is not valid"
 
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/login')
         password= request.POST['password']
         pw_hash= bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
         Driver.objects.create (
@@ -52,7 +53,7 @@ def reg(request):
             birthday=request.POST['birthday'],
             notional_id=request.POST['nid'],
             city=request.POST['city'],
-            blood_type=request.POST['bloodtype'],
+            blood_type=request.POST['blood_type'],
             email=request.POST['email'],
             password=pw_hash,
             phone_number=request.POST['phonenumber'],
@@ -62,11 +63,11 @@ def reg(request):
         request.session['full_name']=name1.full_name
         request.session['driver_id'] = name1.id
 
-        return redirect('/login')
+        return redirect('/driver')
 
 def regpolice(request):
     
-        errors = Police.objects.basic_validator(request.POST)
+        errors = Police.objects.basic_validator2(request.POST)
         polices=Police.objects.all()
         for police in polices:
             if police.email==request.POST['email']:
@@ -75,7 +76,7 @@ def regpolice(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/login')
         password= request.POST['password']
         pw_hash= bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode() 
         Police.objects.create (
@@ -91,7 +92,7 @@ def regpolice(request):
         request.session['full_name_p']=name1.full_name
         request.session['police_id'] = name1.id
 
-        return redirect('/login')
+        return redirect('/policeinfo')
 
 def signin(request):
     if request.POST['type']=='driver':
@@ -132,16 +133,13 @@ def signin(request):
 
 def add_vio(request):
     # -------------------------
-    # Validator for Arbortary Table
+    # Validator for valdition Table
     # -------------------------
-    errors = Violation.objects.basic_validator(request.POST)
-    # check if the errors dictionary has anything in it
+    errors = Violation.objects.basic_validator3(request.POST)
     if len(errors) > 0:
-        # if the errors dictionary contains anything, loop through each key-value pair and make a flash message
         for key, value in errors.items():
             messages.error(request, value)
-        # redirect the user back to the form to fix the errors
-        return redirect('/reg')
+        return redirect('/addviolation')
 
     police1 = Police.objects.get(id = request.session['police_id'])
     driver1= Driver.objects.get(notional_id=request.POST['driver_id'])

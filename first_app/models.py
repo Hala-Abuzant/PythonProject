@@ -23,6 +23,9 @@ class DriverManager(models.Manager):
         PHONE_REGEX=re.compile(r'^05(9[987542]|6[982])\d{6}$')
         if not PHONE_REGEX.match(postData['phonenumber']):
             errors['phonenumber'] = "Invalid Number"
+        if postData['nid'] == "":
+            errors['nid'] = "nid required"
+
 
         return errors
 
@@ -44,7 +47,7 @@ class Driver(models.Model):
 # ------------------------------
 
 class PoliceManager(models.Manager):
-     def basic_validator(self, postData):
+     def basic_validator2(self, postData):
         errors = {}
         if len(postData['fullname']) < 10:
             errors["fullname"] = "Your name should be at least 10 characters"
@@ -76,19 +79,19 @@ class Police(models.Model):
 # ------------------------------
 
 class ViolationManager(models.Manager):
-    def basic_validator(self, postData):
+    def basic_validator3(self, postData):
         errors = {}
-        if len(postData['location']) < 60:
-            errors["location"] = "Your location character should be no more 30 characters"
+        if len(postData['location']) > 60:
+            errors["location"] = "Your location character should be no more 60 characters"
 
-        if int(postData['fees']) > 5000:
+        if postData['fees'] > str(5000) or postData['fees']=="":
             errors["fees"] = "Your fees  should be no more than 5000 shekal"
 
-        if len(postData['reason']) < 120:
+        if len(postData['reason']) > 120:
             errors["reason"] = "Your reason should not exceeded it more than 120 character"
 
-        if postData['ex_date'] > str(datetime.date.today()):
-            errors["ex_date"] = "The date should be at past"
+        if postData['ex_date'] < str(datetime.date.today()):
+            errors["ex_date"] = "The date should be at modern"
 
         if postData['violation_date'] > str(datetime.date.today()):
             errors["violation_date"] = "The date should be at past"
