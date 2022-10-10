@@ -14,6 +14,10 @@ urlpatterns = [
     # for login to User
     path('login',views.login),
     path('signin',views.signin),
+    path('policeinfo',views.policeinfo),
+    path('addviolation',views.addviolation),
+    path('add', views.add_vio),
+    path('showviolation', views.showviolation),
 
-    
+
 ]

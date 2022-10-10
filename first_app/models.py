@@ -60,26 +60,17 @@ class Police(models.Model):
     email=models.CharField(max_length=40)
     password=models.CharField(max_length=20)
     phone_number=models.IntegerField(null=True)
-    police_to_driver=models.ManyToManyField(Driver, related_name="drivertopolice")#FK M-M
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=PoliceManager()
 
 
-class Violaion(models.Model):
+class Violation(models.Model):
     location=models.CharField(max_length=60)
-    expierd_date=models.DateField(null=True)
+    violation_date=models.DateField(null=True)
     fees=models.IntegerField()
-
-    relased_date_linsces=models.DateField()
-    expierd_date_linsces=models.DateField()
-
+    expierd_date_violation=models.DateField(null=True)
     resson=models.CharField(max_length=255)
-    violation_date=models.DateField()
-
-    vechile_model=models.CharField(max_length=30)
-    vechile_number=models.CharField(max_length=20)
-
     driver=models.ForeignKey(Driver,related_name="dviolations", on_delete=models.CASCADE)
     police=models.ForeignKey(Police,related_name="pviolations", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

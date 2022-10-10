@@ -12,12 +12,20 @@
 </head>
 <body>
     <h1>Login</h1>
-   <select name="type" >
-    <option value="driver">Driver</option>
-    <option value="police">Police</option>
-   </select> 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  
    <form action="/signin" method="post">
     {% csrf_token %}
+    <select name="type" >
+        <option value="driver">Driver</option>
+        <option value="police">Police</option>
+       </select> 
     <div class="user-input-box">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" />
