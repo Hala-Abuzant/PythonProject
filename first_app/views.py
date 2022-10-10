@@ -29,6 +29,9 @@ def showviolation(request):
     }
     return render(request,'showviolation.html',context)
 
+
+def home(request):
+    return render(request,'home.html')
 def reg(request):
     
         request.session['type'] = 'driver'
@@ -59,7 +62,7 @@ def reg(request):
         request.session['full_name']=name1.full_name
         request.session['driver_id'] = name1.id
 
-        return redirect('/driver')
+        return redirect('/login')
 
 def regpolice(request):
     
@@ -88,7 +91,7 @@ def regpolice(request):
         request.session['full_name_p']=name1.full_name
         request.session['police_id'] = name1.id
 
-        return redirect('/regp')
+        return redirect('/login')
 
 def signin(request):
     if request.POST['type']=='driver':
@@ -143,8 +146,5 @@ def add_vio(request):
     )
     return redirect('/addviolation')
 
-
-
-    
 
 
