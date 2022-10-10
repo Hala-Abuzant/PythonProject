@@ -78,13 +78,13 @@ class Police(models.Model):
 class ViolationManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
-        if len(postData['location']) < 60:
+        if len(postData['location']) > 60:
             errors["location"] = "Your location character should be no more 30 characters"
 
         if int(postData['fees']) > 5000:
             errors["fees"] = "Your fees  should be no more than 5000 shekal"
 
-        if len(postData['reason']) < 120:
+        if len(postData['reason']) > 120:
             errors["reason"] = "Your reason should not exceeded it more than 120 character"
 
         if postData['ex_date'] > str(datetime.date.today()):
@@ -96,9 +96,11 @@ class ViolationManager(models.Manager):
 
 class Violation(models.Model):
     location=models.CharField(max_length=60)
-    violation_date=models.DateField(null=True)
     fees=models.IntegerField()
+
+    violation_date = models.DateField(null=True)
     expierd_date_violation=models.DateField(null=True)
+    
     resson=models.CharField(max_length=120)
     driver=models.ForeignKey(Driver,related_name="dviolations", on_delete=models.CASCADE)
     police=models.ForeignKey(Police,related_name="pviolations", on_delete=models.CASCADE)

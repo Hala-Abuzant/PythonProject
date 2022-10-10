@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add violation</title>
 </head>
+
 <body>
     <form action="/add" method="post">
         {% csrf_token %}
@@ -26,20 +28,30 @@
                 <td>Date of Violation:</td>
                 <td><input type="date" name="violation_date"></td>
             </tr>
-           
+
             <tr>
                 <td>expierd date violation</td>
                 <td><input type="date" name="ex_date"></td>
             </tr>
             <tr>
                 <td>Reason:</td>
-                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>  
+                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>
             </tr>
             <tr>
-                <input type="submit" value="add violation"/>
+                <input type="submit" value="add violation" />
             </tr>
+
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
         </table>
 
     </form>
 </body>
+
 </html>
