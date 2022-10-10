@@ -2,6 +2,10 @@ from django.db import models
 import re
 import datetime
 
+# ------------------------------
+#   > Vaildation of Driver <
+# ------------------------------
+
 class DriverManager(models.Manager):
      def basic_validator(self, postData):
         errors = {}
@@ -35,6 +39,9 @@ class Driver(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects=DriverManager()
 
+# ------------------------------
+#   > Vaildation of Police <
+# ------------------------------
 
 class PoliceManager(models.Manager):
      def basic_validator(self, postData):
@@ -64,14 +71,37 @@ class Police(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects=PoliceManager()
 
+# ------------------------------
+#   > Vaildation of Violation <
+# ------------------------------
+
+class ViolationManager(models.Manager):
+    def basic_validator(self, postData):
+        errors = {}
+        if len(postData['location']) < 60:
+            errors["location"] = "Your location character should be no more 30 characters"
+
+        if int(postData['fees']) > 5000:
+            errors["fees"] = "Your fees  should be no more than 5000 shekal"
+
+        if len(postData['reason']) < 120:
+            errors["reason"] = "Your reason should not exceeded it more than 120 character"
+
+        if postData['ex_date'] > str(datetime.date.today()):
+            errors["ex_date"] = "The date should be at past"
+
+        if postData['violation_date'] > str(datetime.date.today()):
+            errors["violation_date"] = "The date should be at past"
+        return errors
 
 class Violation(models.Model):
     location=models.CharField(max_length=60)
     violation_date=models.DateField(null=True)
     fees=models.IntegerField()
     expierd_date_violation=models.DateField(null=True)
-    resson=models.CharField(max_length=255)
+    resson=models.CharField(max_length=120)
     driver=models.ForeignKey(Driver,related_name="dviolations", on_delete=models.CASCADE)
     police=models.ForeignKey(Police,related_name="pviolations", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects=ViolationManager()
