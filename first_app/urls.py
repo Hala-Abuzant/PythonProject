@@ -15,6 +15,7 @@ urlpatterns = [
     path('login',views.login),
     path('signin',views.signin),
     path('policeinfo',views.policeinfo),
+    # path('policeinfo_show', views.policeinfo_show),
     path('addviolation',views.addviolation),
     path('add', views.add_vio),
     path('showviolation', views.showviolation),
