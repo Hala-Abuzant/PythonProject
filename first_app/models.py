@@ -108,3 +108,13 @@ class Violation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=ViolationManager()
+
+
+
+class Licenses(models.Model):
+    expierd_date_licenses=models.DateField(null=True)
+    vechile_type=models.CharField(max_length=120)
+    driver=models.OneToOneField(Driver, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+

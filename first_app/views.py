@@ -3,9 +3,6 @@ import bcrypt
 from .models import *
 from django.contrib import messages
 
-def form1(request):
-
-        return render(request, 'registerdriver.html')
 
 def policeinfo(request):
      return render(request, 'policeinfo.html')
