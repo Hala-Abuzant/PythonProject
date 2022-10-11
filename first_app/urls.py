@@ -18,6 +18,5 @@ urlpatterns = [
     path('addviolation',views.addviolation),
     path('add', views.add_vio),
     path('showviolation', views.showviolation),
-
-
+    path('home',views.home),
 ]

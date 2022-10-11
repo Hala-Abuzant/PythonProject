@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}" > 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    
+</head>
+
+<body>
+    <div class="all" >
+        <nav>
+            <div>
+                <img id="logo" src="/static/img/vio.jpg" width="12%" height="5%">
+            </div>
+            <div class="head">
+                <h1>Your Violation Checker</h1>
+            </div>
+        </nav>
+        
+        <div class="containor">
+            <div>
+                <p>Welocme to your violation checker! <br>
+                   this website helps you to reach to your traffic violations online from anywhere in the country,
+                   all you need is a profile here and all your violations deatails will be reserved here.
+                </p>
+
+            </div>
+                <div class="right"> 
+                    <div id="right_img">
+                        <img src="/static/img/police-station.png" width="50%">
+                    </div>
+
+                    <div class="btn">
+                        <input id="btn" type="submit" name="Sign_in" value="Sign in">
+                        <input  id="btn" type="submit" name="Sign_up" value="Sign up">
+                    </div>
+                </div>
+        </div>
+        
+    </div>
+</body>
+
+</html>

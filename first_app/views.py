@@ -29,6 +29,10 @@ def showviolation(request):
     }
     return render(request,'showviolation.html',context)
 
+
+def home(request):
+    return render(request,'home.html')
+    
 def reg(request):
     
         request.session['type'] = 'driver'
@@ -59,7 +63,7 @@ def reg(request):
         request.session['full_name']=name1.full_name
         request.session['driver_id'] = name1.id
 
-        return redirect('/driver')
+        return redirect('/login')
 
 def regpolice(request):
     
@@ -88,7 +92,7 @@ def regpolice(request):
         request.session['full_name_p']=name1.full_name
         request.session['police_id'] = name1.id
 
-        return redirect('/regp')
+        return redirect('/login')
 
 def signin(request):
     if request.POST['type']=='driver':
@@ -128,6 +132,18 @@ def signin(request):
         return redirect('/login')
 
 def add_vio(request):
+    # -------------------------
+    # Validator for Arbortary Table
+    # -------------------------
+    errors = Violation.objects.basic_validator(request.POST)
+    # check if the errors dictionary has anything in it
+    if len(errors) > 0:
+        # if the errors dictionary contains anything, loop through each key-value pair and make a flash message
+        for key, value in errors.items():
+            messages.error(request, value)
+        # redirect the user back to the form to fix the errors
+        return redirect('/reg')
+
     police1 = Police.objects.get(id = request.session['police_id'])
     driver1= Driver.objects.get(notional_id=request.POST['driver_id'])
 
@@ -143,8 +159,5 @@ def add_vio(request):
     )
     return redirect('/addviolation')
 
-
-
-    
 
 
