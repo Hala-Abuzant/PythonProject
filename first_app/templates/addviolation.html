@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add violation</title>
 </head>
+
 <body>
+    <!-- message for appeared a error in entered field -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- form for adding a violation data -->
     <form action="/add" method="post">
         {% csrf_token %}
         <table border="1">
@@ -26,21 +38,33 @@
                 <td>Date of Violation:</td>
                 <td><input type="date" name="violation_date"></td>
             </tr>
-           
+
             <tr>
                 <td>expierd date violation</td>
                 <td><input type="date" name="ex_date"></td>
             </tr>
             <tr>
                 <td>Reason:</td>
-                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>  
+                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>
             </tr>
             <tr>
+<<<<<<< HEAD
                 <input type="submit" value="add violation" onclick="showNotif()">
+=======
+
+
+                <input type="submit" value="add violation" onclick="showNotif()">
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
             </tr>
+
         </table>
 
     </form>
+<<<<<<< HEAD
+=======
+    <!-- for notifcation -->
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
     <script>
         function showNotif() {
             const notifcation = new Notification("sa",{
@@ -61,4 +85,5 @@
         console.log(Notification.permission)
     </script>
 </body>
+
 </html>

@@ -6,70 +6,108 @@ import datetime
 #   > Vaildation of Driver <
 # ------------------------------
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 class DriverManager(models.Manager):
-     def basic_validator(self, postData):
+    def basic_validator(self, postData):
         errors = {}
         if len(postData['fullname']) < 10:
             errors["fullname"] = "Your name should be at least 10 characters"
         # if  datetime.date.today()-postData['birthday'] <= 18  :
         #     errors["birthday"] = "Your Age Must be more than  or equal 18"
-        if postData['cpassword']!=postData['password']:
+        if postData['cpassword'] != postData['password']:
             errors["cpassword"] = "The Password doesnt match"
-        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(postData['email']):            
+        EMAIL_REGEX = re.compile(
+            r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid email format"
         if len(postData['password']) < 8:
             errors["password"] = "The Password should be at least 8 characters"
-        PHONE_REGEX=re.compile(r'^05(9[987542]|6[982])\d{6}$')
+        PHONE_REGEX = re.compile(r'^05(9[987542]|6[982])\d{6}$')
         if not PHONE_REGEX.match(postData['phonenumber']):
             errors['phonenumber'] = "Invalid Number"
+        if postData['nid'] == "":
+            errors['nid'] = "nid required"
 
         return errors
 
+
 class Driver(models.Model):
-    full_name=models.CharField(max_length=30)
-    birthday=models.DateField()
-    notional_id=models.IntegerField(null=True)
-    city=models.CharField(max_length=30)
-    blood_type=models.CharField(max_length=4)
-    email=models.CharField(max_length=40)
-    password=models.CharField(max_length=20)
-    phone_number=models.IntegerField()
+    full_name = models.CharField(max_length=30)
+    birthday = models.DateField()
+    notional_id = models.IntegerField(null=True)
+    city = models.CharField(max_length=30)
+    blood_type = models.CharField(max_length=4)
+    email = models.CharField(max_length=40)
+    password = models.CharField(max_length=20)
+    phone_number = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    objects=DriverManager()
+    objects = DriverManager()
+
+# ------------------------------
+#   > Vaildation of Police <
+# ------------------------------
 
 # ------------------------------
 #   > Vaildation of Police <
 # ------------------------------
 
 class PoliceManager(models.Manager):
-     def basic_validator(self, postData):
+    def basic_validator2(self, postData):
         errors = {}
         if len(postData['fullname']) < 10:
             errors["fullname"] = "Your name should be at least 10 characters"
-        if postData['cpassword']!=postData['password']:
+        if postData['cpassword'] != postData['password']:
             errors["cpassword"] = "The Password doesnt match"
-        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(postData['email']):            
+        EMAIL_REGEX = re.compile(
+            r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Invalid email format"
         if len(postData['password']) < 8:
             errors["password"] = "The Password should be at least 8 characters"
-        PHONE_REGEX=re.compile(r'^05(9[987542]|6[982])\d{6}$')
+        PHONE_REGEX = re.compile(r'^05(9[987542]|6[982])\d{6}$')
         if not PHONE_REGEX.match(postData['phonenumber']):
             errors['phonenumber'] = "Invalid Number"
         return errors
 
+
 class Police(models.Model):
-    full_name=models.CharField(max_length=30)
-    birthday=models.DateField()
-    city=models.CharField(max_length=30)
-    email=models.CharField(max_length=40)
-    password=models.CharField(max_length=20)
-    phone_number=models.IntegerField(null=True)
+    full_name = models.CharField(max_length=30)
+    birthday = models.DateField()
+    city = models.CharField(max_length=30)
+    email = models.CharField(max_length=40)
+    password = models.CharField(max_length=20)
+    phone_number = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    objects=PoliceManager()
+    objects = PoliceManager()
+
+# ------------------------------
+#   > Vaildation of Violation <
+# ------------------------------
+
+
+class ViolationManager(models.Manager):
+    def basic_validator3(self, postData):
+        errors = {}
+        if len(postData['location']) > 60:
+            errors["location"] = "Your location character should be no more 60 characters"
+
+        if postData['fees'] > str(5000) or postData['fees'] == "":
+            errors["fees"] = "Your fees  should be no more than 5000 shekal"
+
+        if len(postData['reason']) > 120:
+            errors["reason"] = "Your reason should not exceeded it more than 120 character"
+
+        if postData['ex_date'] < str(datetime.date.today()):
+            errors["ex_date"] = "The date should be at modern"
+
+        if postData['violation_date'] > str(datetime.date.today()):
+            errors["violation_date"] = "The date should be at past"
+        return errors
 
 # ------------------------------
 #   > Vaildation of Violation <
@@ -95,6 +133,7 @@ class ViolationManager(models.Manager):
         return errors
 
 class Violation(models.Model):
+<<<<<<< HEAD
     location=models.CharField(max_length=60)
     violation_date=models.DateField(null=True)
     fees=models.IntegerField()
@@ -105,3 +144,28 @@ class Violation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=ViolationManager()
+=======
+    location = models.CharField(max_length=60)
+    fees = models.IntegerField()
+
+    violation_date = models.DateField(null=True)
+    expierd_date_violation = models.DateField(null=True)
+
+    resson = models.CharField(max_length=120)
+    driver = models.ForeignKey(Driver, related_name="dviolations", on_delete=models.CASCADE)
+    police = models.ForeignKey(Police, related_name="pviolations", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects=ViolationManager()
+
+
+
+class Licenses(models.Model):
+    expierd_date_licenses=models.DateField(null=True)
+    vechile_type=models.CharField(max_length=120)
+    driver=models.OneToOneField(Driver, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36

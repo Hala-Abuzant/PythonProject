@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Police info</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #DDD;
+        }
+
+        tr:hover {
+            background-color: #D6EEEE;
+        }
+    </style>
 </head>
+
 <body>
     <h2> Welcome Police {{request.session.full_name_p}}</h2>
     <a href="/addviolation">addviolation</a>
+<<<<<<< HEAD
+=======
+
+
+    <table>
+
+        <tr>
+            <td>
+
+            </td>
+        </tr>
+        {%for vio in allviolations%}
+        {%if vio.police.id == police.id%}
+        <tr>
+            <td>{{vio.driver.full_name}}</td>
+            <td>{{vio.driver.birthday}}</td>
+            <td>{{vio.driver.notional_id}}</td>
+            <td>{{vio.driver.city}}</td>
+            <td>{{vio.driver.blood_type}}</td>
+            <td>{{vio.driver.email}}</td>
+            <td>{{vio.driver.phone_number}}</td>
+            <td>{{vio.driver.created_at}}</td>
+            <td>{{vio.driver.updated_at}}</td>
+        </tr>
+        {%endif%}
+        {%endfor%}
+    </table>
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 </body>
+
 </html>
