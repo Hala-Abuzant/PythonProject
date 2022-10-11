@@ -31,6 +31,7 @@ def showviolation(request):
         'this_driver': Driver.objects.get(id=request.session['driver_id'])
     }
     return render(request, 'showviolation.html', context)
+<<<<<<< HEAD
 
 
 def home(request):
@@ -41,6 +42,14 @@ def home(request):
 def home(request):
     return render(request,'home.html')
     
+=======
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 def reg(request):
     errors = Driver.objects.basic_validator(request.POST)
     users = Driver.objects.all()
@@ -66,6 +75,7 @@ def reg(request):
         email=request.POST['email'],
         password=pw_hash,
         phone_number=request.POST['phonenumber'],
+<<<<<<< HEAD
 
     )
     name1 = Driver.objects.last()
@@ -78,6 +88,16 @@ def reg(request):
         return redirect('/login')
 =======
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
+
+    )
+    name1 = Driver.objects.last()
+    request.session['full_name'] = name1.full_name
+    request.session['driver_id'] = name1.id
+
+    return redirect('/driver')
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
 def regpolice(request):
 
@@ -86,6 +106,7 @@ def regpolice(request):
     for police in polices:
         if police.email == request.POST['email']:
             errors['email'] = "this email aleady exsist"
+<<<<<<< HEAD
 
     if len(errors) > 0:
         for key, value in errors.items():
@@ -111,6 +132,30 @@ def regpolice(request):
 <<<<<<< HEAD
         return redirect('/login')
 =======
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/login')
+    password = request.POST['password']
+    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    Police.objects.create(
+        full_name=request.POST['fullname'],
+        birthday=request.POST['birthday'],
+        city=request.POST['city'],
+        email=request.POST['email'],
+        password=pw_hash,
+        phone_number=request.POST['phonenumber'],
+
+    )
+    name1 = Police.objects.last()
+    request.session['full_name_p'] = name1.full_name
+    request.session['police_id'] = name1.id
+
+    return redirect('/policeinfo')
+
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
 def signin(request):
@@ -156,6 +201,7 @@ def signin(request):
 def add_vio(request):
     # -------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
     # Validator for Arbortary Table
     # -------------------------
     errors = Violation.objects.basic_validator(request.POST)
@@ -170,6 +216,8 @@ def add_vio(request):
     police1 = Police.objects.get(id = request.session['police_id'])
     driver1= Driver.objects.get(notional_id=request.POST['driver_id'])
 =======
+=======
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
     # Validator for valdition Table
     # -------------------------
     errors = Violation.objects.basic_validator3(request.POST)
@@ -180,6 +228,9 @@ def add_vio(request):
 
     police1 = Police.objects.get(id=request.session['police_id'])
     driver1 = Driver.objects.get(notional_id=request.POST['driver_id'])
+<<<<<<< HEAD
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
     Violation.objects.create(
@@ -195,13 +246,20 @@ def add_vio(request):
     return redirect('/addviolation')
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
+=======
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 def policeinfo(request):
     context = {
         'allviolations': Violation.objects.all(),
         'police': Police.objects.get(id=request.session['police_id'])
     }
+<<<<<<< HEAD
+    return render(request, 'policeinfo.html', context)
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
     return render(request, 'policeinfo.html', context)
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36

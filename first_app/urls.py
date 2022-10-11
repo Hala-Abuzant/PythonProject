@@ -21,6 +21,9 @@ urlpatterns = [
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
     path('home',views.home),
 ]

@@ -7,6 +7,10 @@ import datetime
 # ------------------------------
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 =======
 
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
@@ -46,6 +50,13 @@ class Driver(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = DriverManager()
+<<<<<<< HEAD
+=======
+
+# ------------------------------
+#   > Vaildation of Police <
+# ------------------------------
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
 # ------------------------------
 #   > Vaildation of Police <
@@ -84,6 +95,33 @@ class Police(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = PoliceManager()
+<<<<<<< HEAD
+=======
+
+# ------------------------------
+#   > Vaildation of Violation <
+# ------------------------------
+
+
+class ViolationManager(models.Manager):
+    def basic_validator3(self, postData):
+        errors = {}
+        if len(postData['location']) > 60:
+            errors["location"] = "Your location character should be no more 60 characters"
+
+        if postData['fees'] > str(5000) or postData['fees'] == "":
+            errors["fees"] = "Your fees  should be no more than 5000 shekal"
+
+        if len(postData['reason']) > 120:
+            errors["reason"] = "Your reason should not exceeded it more than 120 character"
+
+        if postData['ex_date'] < str(datetime.date.today()):
+            errors["ex_date"] = "The date should be at modern"
+
+        if postData['violation_date'] > str(datetime.date.today()):
+            errors["violation_date"] = "The date should be at past"
+        return errors
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
 # ------------------------------
 #   > Vaildation of Violation <
@@ -134,6 +172,7 @@ class ViolationManager(models.Manager):
 
 class Violation(models.Model):
 <<<<<<< HEAD
+<<<<<<< HEAD
     location=models.CharField(max_length=60)
     violation_date=models.DateField(null=True)
     fees=models.IntegerField()
@@ -156,6 +195,19 @@ class Violation(models.Model):
     police = models.ForeignKey(Police, related_name="pviolations", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+=======
+    location = models.CharField(max_length=60)
+    fees = models.IntegerField()
+
+    violation_date = models.DateField(null=True)
+    expierd_date_violation = models.DateField(null=True)
+
+    resson = models.CharField(max_length=120)
+    driver = models.ForeignKey(Driver, related_name="dviolations", on_delete=models.CASCADE)
+    police = models.ForeignKey(Police, related_name="pviolations", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
 
     objects=ViolationManager()
 
@@ -168,4 +220,7 @@ class Licenses(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+<<<<<<< HEAD
+>>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
+=======
 >>>>>>> f1341fe71c2b4a556f652f8af6746a1c329fae36
