@@ -4,22 +4,8 @@ import bcrypt
 from .models import *
 from django.contrib import messages
 
-<<<<<<< HEAD
-=======
 
-def form1(request):
 
-    return render(request, 'registerdriver.html')
-
->>>>>>> 22f0ef0f27fcde02b0c8a688961e88e17fe7abc5
-
-def policeinfo(request):
-    x = police.objects.get(id=request.session['police_id'])
-    context = {
-        'allviolations': Violation.objects.all(),
-        'police': police.objects.get(id=request.session['police_id'])
-    }
-    return render(request, 'policeinfo.html', context)
 
 
 def driver(request):
@@ -179,3 +165,10 @@ def add_vio(request):
 
     )
     return redirect('/addviolation')
+
+def policeinfo(request):
+    context = {
+        'allviolations': Violation.objects.all(),
+        'police': Police.objects.get(id=request.session['police_id'])
+    }
+    return render(request, 'policeinfo.html', context)

@@ -116,7 +116,7 @@ class Violation(models.Model):
     police = models.ForeignKey(Police, related_name="pviolations", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-<<<<<<< HEAD
+
     objects=ViolationManager()
 
 
@@ -128,6 +128,3 @@ class Licenses(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-=======
-    objects = ViolationManager()
->>>>>>> 22f0ef0f27fcde02b0c8a688961e88e17fe7abc5
