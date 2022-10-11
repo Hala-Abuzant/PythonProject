@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add violation</title>
 </head>
+
 <body>
+    <!-- message for appeared a error in entered field -->
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -14,6 +17,8 @@
         {% endfor %}
     </ul>
     {% endif %}
+
+    <!-- form for adding a violation data -->
     <form action="/add" method="post">
         {% csrf_token %}
         <table border="1">
@@ -33,21 +38,27 @@
                 <td>Date of Violation:</td>
                 <td><input type="date" name="violation_date"></td>
             </tr>
-           
+
             <tr>
                 <td>expierd date violation</td>
                 <td><input type="date" name="ex_date"></td>
             </tr>
             <tr>
                 <td>Reason:</td>
-                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>  
+                <td><textarea name="reason" cols="50px" rows="5px"></textarea> </td>
             </tr>
             <tr>
+<<<<<<< HEAD
+                <input type="submit" value="add violation" />
+=======
                 <input type="submit" value="add violation" onclick="showNotif()">
+>>>>>>> a79e6b3da8f1d876a42093f3f733f5c70aa9d678
             </tr>
+
         </table>
 
     </form>
+    <!-- for notifcation -->
     <script>
         function showNotif() {
             const notifcation = new Notification("sa",{
@@ -68,4 +79,5 @@
         console.log(Notification.permission)
     </script>
 </body>
+
 </html>

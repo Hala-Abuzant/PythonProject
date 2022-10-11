@@ -17,6 +17,7 @@
         <div class="login">
          
             <form action="/signin" , method="post">
+                {% csrf_token %}
                 <div class="login-selcet">
                     <h1 class="log-title">Login</h1>
                     <select name="type" class="form-select" aria-label="Disabled select example">
@@ -26,7 +27,7 @@
                 </div>
             <div class="user-input-box1">
               
-                {% csrf_token %}
+                
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter Email" /><br>
                 <label for="password">Password</label>
@@ -54,6 +55,7 @@
                     </div>
                 </div>
             </div>
+
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -61,6 +63,7 @@
                 {% endfor %}
             </ul>
             {% endif %}
+
             <form action="/reg" method="post">
                 {% csrf_token %}
                 <div class="main-user-info">
@@ -125,6 +128,7 @@
                     </div>
                 </div>
             </div>
+       
             <form action="/police" method="post">
                 {% csrf_token %}
                 <div class="main-user-info">
